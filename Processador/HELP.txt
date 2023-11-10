@@ -1,0 +1,85 @@
+Módulo ControlUnit - Ajuda
+O módulo ControlUnit é responsável por gerar sinais de controle com base nas instruções RISC-V fornecidas.
+Abaixo estão as configurações para a instrução MUL (Multiplicação):
+
+Instrução MUL (Multiply)
+OP: 7'b0110011
+Funct3: 3'b000
+Funct7: 7'b0000001
+
+Sinais de Controle:
+- RegWrite: Ativado
+- ULASrc: Desativado
+- ULAControl: 3'b100 (indica operação de multiplicação)
+- ImmSrc: Qualquer valor válido (não usado nesta instrução)
+- MemWrite: Desativado
+- ResultSrc: Desativado
+- Branch: Desativado
+Essas configurações são destinadas a suportar a instrução MUL no módulo ControlUnit.
+
+Instrução DIV (Divide)
+OP: 7'b0110011
+Funct3: 3'b100
+Funct7: 7'b0000001
+
+Sinais de Controle:
+- RegWrite: Ativado
+- ULASrc: Desativado
+- ULAControl: 3'b110 (indica operação de divisão)
+- ImmSrc: Qualquer valor válido (não usado nesta instrução)
+- MemWrite: Desativado
+- ResultSrc: Desativado
+- Branch: Desativado
+Essas configurações são destinadas a suportar a instrução DIV no módulo ControlUnit.
+
+Instrução BNE (Branch Not Equal)
+OP: 7'b1100011
+Funct3: 3'b001
+Funct7: Qualquer valor válido
+
+Sinais de Controle:
+- RegWrite: Desativado
+- ULASrc: Desativado
+- ULAControl: 3'b010 (indica operação de comparação não igual)
+- ImmSrc: '2'b10' (indica que a imediata é do tipo BNE)
+- MemWrite: Desativado
+- ResultSrc: Desativado
+- Branch: Ativado (indica um salto)
+Essas configurações são destinadas a suportar a instrução BNE no módulo ControlUnit.
+
+Instrução XOR (Bitwise Exclusive OR)
+OP: 7'b0110011
+Funct3: 3'b100 (XOR)
+Funct7: 7'b0000000
+
+Sinais de Controle:
+- RegWrite: Ativado
+- ULASrc: Desativado
+- ULAControl: 3'b111 (indica operação XOR)
+- ImmSrc: Qualquer valor válido (não usado nesta instrução)
+- MemWrite: Desativado
+- ResultSrc: Desativado
+- Branch: Desativado
+Essas configurações são destinadas a suportar a instrução XOR no módulo ControlUnit.
+
+
+Módulo RegisterFile - Expansão do Número de Registradores
+O módulo RegisterFile é responsável por fornecer um conjunto de registradores para armazenamento temporário de dados no processador.
+A expansão do número de registradores envolve aumentar a quantidade de registros disponíveis para melhorar a capacidade de armazenamento.
+
+Parâmetros:
+DATA_WIDTH: Largura dos dados armazenados em cada registrador.
+NUM_REGISTERS: Número total de registradores disponíveis.
+
+Entradas:
+wd3: Dados a serem gravados nos registradores.
+wa3: Endereço do registrador para escrita.
+we3: Sinal de controle para escrita.
+clk: Sinal de clock para sincronizar operações.
+rst: Sinal de reset para reinicializar todos os registradores.
+ra1, ra2: Endereços dos registradores para leitura.
+
+Saídas:
+rd1, rd2: Dados lidos dos registradores.
+
+Para expandir o número de registradores deve ajustar o parâmetro NUM_REGISTERS para o novo número desejado de registradores.
