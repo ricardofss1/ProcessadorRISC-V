@@ -14,7 +14,7 @@ always @(*) begin
 		7'b0110011: begin
 			case (Funct3)
 				3'b000: begin 
-					case (Funct7) // ADD e SUB
+					case (Funct7) // ADD, SUB e MUL
 						7'b0000000: begin
 							ImmSrc = 2'bxx;
 							ULASrc = 0;
@@ -32,6 +32,14 @@ always @(*) begin
 							Branch = 0;
 
 						end
+						7'b0000001: begin
+                     ULASrc = 0;
+                     ULAControl = 3'b100;
+                     ImmSrc = 2'bxx;
+                     MemWrite = 0;
+                     ResultSrc = 0;
+                     Branch = 0;
+                   end
 
 					endcase
 				end
@@ -72,6 +80,18 @@ always @(*) begin
 							Branch = 0;
 						end
 						
+					endcase
+				end
+				3'b100: begin
+					case (Funct7) //DIV
+						7'b0000001: begin
+							ULASrc = 0;
+							ULAControl = 3'b110;
+							ImmSrc = 2'bxx;
+							MemWrite = 0;
+							ResultSrc = 0;
+							Branch = 0;
+						end
 					endcase
 				end
 			endcase
@@ -123,7 +143,16 @@ always @(*) begin
 					MemWrite = 0;
 					ResultSrc = 1'bx;
 					Branch = 1;
-				end
+					end
+				3'b001: begin // BNE
+					RegWrite = 0;
+               ULASrc = 0;
+               ULAControl = 3'b010;
+               ImmSrc = 2'b10;
+               MemWrite = 0;
+               ResultSrc = 1'bx;
+               Branch = 1;
+            end
 			endcase
 		end
 		default: begin
